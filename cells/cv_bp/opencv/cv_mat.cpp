@@ -8,8 +8,10 @@
 #include <string>
 
 #include <opencv2/core/core.hpp>
+#include <boost/python/numpy.hpp>
 
 namespace bp = boost::python;
+namespace np = boost::python::numpy;
 
 namespace
 {
@@ -81,16 +83,16 @@ namespace
     }
 
     //Create a Numeric array with dimensions dimens and Numeric type t
-    bp::numeric::array
+    np::ndarray
     makeNum(std::vector<int> dimens, PyArray_TYPES t = PyArray_DOUBLE)
     {
       using namespace bp;
       object obj(handle<>(PyArray_FromDims(dimens.size(), &dimens[0], t)));
-      return extract<numeric::array>(obj);
+      return extract<np::ndarray>(obj);
     }
 
     void*
-    data(bp::numeric::array arr)
+    data(np::ndarray arr)
     {
       if (!PyArray_Check(arr.ptr()))
       {
@@ -102,7 +104,7 @@ namespace
 
     //Copy data into the array
     void
-    copy_data(boost::python::numeric::array arr, const uchar* new_data)
+    copy_data(np::ndarray arr, const uchar* new_data)
     {
       uchar* arr_data = (uchar*) data(arr);
       size_t nbytes = PyArray_NBYTES(arr.ptr());
@@ -114,7 +116,7 @@ namespace
 
     //Copy data into the array
     void
-    copy_data(uchar* new_data, boost::python::numeric::array arr)
+    copy_data(uchar* new_data, np::ndarray arr)
     {
       uchar* arr_data = (uchar*) data(arr);
       size_t nbytes = PyArray_NBYTES(arr.ptr());
@@ -123,15 +125,16 @@ namespace
         new_data[i] = arr_data[i];
       }
     }
+
     PyArray_TYPES
-    type(bp::numeric::array arr)
+    type(np::ndarray arr)
     {
       return PyArray_TYPES(PyArray_TYPE(arr.ptr()));
     }
 
     //Return the number of dimensions
     int
-    rank(bp::numeric::array arr)
+    rank(np::ndarray arr)
     {
       using namespace bp;
       //std::cout << "inside rank" << std::endl;
@@ -144,7 +147,7 @@ namespace
     }
 
     std::vector<npy_intp>
-    shape(bp::numeric::array arr)
+    shape(np::ndarray arr)
     {
       using namespace bp;
       std::vector<npy_intp> out_dims;
@@ -164,7 +167,7 @@ namespace
   }
 
   void
-  mat_from_array(cv::Mat& m, bp::numeric::array array)
+  mat_from_array(cv::Mat& m, np::ndarray array)
   {
     std::vector<npy_intp> shape = numpy_helpers::shape(array);
     int cv_depth = numpy_helpers::fromPyArray_TYPES(numpy_helpers::type(array));
@@ -179,13 +182,13 @@ namespace
   bp::object
   mat_to_array(cv::Mat& m)
   {
-    typedef bp::numeric::array array_t;
+    typedef np::ndarray array_t;
     std::vector<int> dim(2);
     dim[0] = m.rows;
     dim[1] = m.cols;
     if(m.channels() != 1)
       dim.push_back(m.channels());
-    bp::numeric::array array(numpy_helpers::makeNum(dim, numpy_helpers::fromCVDepth(m.depth())));
+    np::ndarray array(numpy_helpers::makeNum(dim, numpy_helpers::fromCVDepth(m.depth())));
     numpy_helpers::copy_data(array, m.ptr(0));
     return array;
   }
@@ -308,11 +311,7 @@ namespace
   tostr(cv::Mat& m)
   {
     std::stringstream ss;
-#if CV_MAJOR_VERSION == 3
     ss << cv::Formatter::get(cv::Formatter::FMT_PYTHON)->format(m);
-#else
-    cv::Formatter::get("python")->write(ss,m);
-#endif
     return ss.str();
   }
   inline cv::Mat
@@ -321,7 +320,7 @@ namespace
     return m.t();
   }
 
-  boost::shared_ptr<cv::Mat> from_numpy( bp::numeric::array array)
+  boost::shared_ptr<cv::Mat> from_numpy( np::ndarray array)
   {
     cv::Mat m;
     mat_from_array(m,array);
@@ -335,8 +334,8 @@ namespace opencv_wrappers
   void
   wrap_mat()
   {
-    import_array();
-    bp::numeric::array::set_module_and_type("numpy", "ndarray");
+    //import_array();
+    //np::ndarray::set_module_and_type("numpy", "ndarray");
 
     typedef std::vector<uchar> buffer_t;
     bp::class_<std::vector<uchar> >("buffer").def(bp::vector_indexing_suite<std::vector<uchar>, false>());

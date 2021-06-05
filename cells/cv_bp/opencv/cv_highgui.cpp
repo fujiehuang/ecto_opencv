@@ -34,10 +34,10 @@ namespace
   ;
   BOOST_PYTHON_FUNCTION_OVERLOADS(imencode_overloads,cv::imencode,3,4)
   ;
-#if (CV_MAJOR_VERSION == 3 && CV_MINOR_VERSION >= 3)
+//#if (CV_MAJOR_VERSION == 3 && CV_MINOR_VERSION >= 3)
   BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(videowriter_open_overloads1,cv::VideoWriter::open,4,5);
   BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(videowriter_open_overloads2,cv::VideoWriter::open,5,6);
-#endif
+//#endif
 
   struct PyMCallBackData
   {
@@ -79,13 +79,13 @@ namespace opencv_wrappers
     VideoCapture_.def(bp::init<>());
     VideoCapture_.def(bp::init<std::string>());
     VideoCapture_.def(bp::init<int>());
-#if CV_MAJOR_VERSION == 3
-    typedef bool(cv::VideoCapture::*open_1)(const cv::String&);
-    typedef bool(cv::VideoCapture::*open_2)(int);
-#else
-    typedef bool(cv::VideoCapture::*open_1)(const std::string&);
-    typedef bool(cv::VideoCapture::*open_2)(int);
-#endif
+//#if CV_MAJOR_VERSION == 3
+    typedef bool(cv::VideoCapture::*open_1)(const cv::String&, int);
+    typedef bool(cv::VideoCapture::*open_2)(int, int);
+//#else
+//    typedef bool(cv::VideoCapture::*open_1)(const std::string&);
+//    typedef bool(cv::VideoCapture::*open_2)(int);
+//#endif
     VideoCapture_.def("open", open_1(&cv::VideoCapture::open));
     VideoCapture_.def("open", open_2(&cv::VideoCapture::open));
     VideoCapture_.def("isOpened", &cv::VideoCapture::isOpened);
@@ -102,16 +102,16 @@ namespace opencv_wrappers
     bp::class_<cv::VideoWriter> VideoWriter_("VideoWriter");
     VideoWriter_.def(bp::init<>());
     VideoWriter_.def(bp::init<const std::string&, int, double, cv::Size, bool>());
-#if (CV_MAJOR_VERSION == 3 && CV_MINOR_VERSION >= 3)
+//#if (CV_MAJOR_VERSION == 3 && CV_MINOR_VERSION >= 3)
     VideoWriter_.def("open",
       static_cast<bool(cv::VideoWriter::*)(const cv::String&,int,double,cv::Size,bool)>(
       &cv::VideoWriter::open),videowriter_open_overloads1());
     VideoWriter_.def("open",
       static_cast<bool(cv::VideoWriter::*)(const cv::String&,int,int,double,cv::Size,bool)>(
       &cv::VideoWriter::open),videowriter_open_overloads2());
-#else
-    VideoWriter_.def("open", &cv::VideoWriter::open);
-#endif
+//#else
+//    VideoWriter_.def("open", &cv::VideoWriter::open);
+//#endif
     VideoWriter_.def("isOpened", &cv::VideoWriter::isOpened);
     VideoWriter_.def("write", &cv::VideoWriter::write);
   }
@@ -129,11 +129,11 @@ namespace opencv_wrappers
     wrap_video_writer();
 
     //image windows
-#if CV_MAJOR_VERSION == 3
+//#if CV_MAJOR_VERSION == 3
     bp::def("imshow", static_cast<void (*)(const cv::String&, cv::InputArray)>(cv::imshow));
-#else
-    bp::def("imshow", cv_backports::imshow);
-#endif
+//#else
+    //bp::def("imshow", cv_backports::imshow);
+//#endif
     bp::def("waitKey", waitKey);
     bp::def("namedWindow", cv_backports::namedWindow);
 //CV_EXPORTS void setMouseCallback( const string& windowName, MouseCallback onMouse, void* param=0);

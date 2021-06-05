@@ -35,7 +35,8 @@ namespace calib
     cv::FileStorage fs(calibfile, cv::FileStorage::WRITE);
     if (!fs.isOpened())
       throw std::runtime_error("Could not open " + calibfile + " for write.");
-    cvWriteComment(*fs, "camera intrinsics", 0);
+    //cvWriteComment(*fs, "camera intrinsics", 0);
+    fs.writeComment("camera intrinsics", 0);
     fs << "camera_matrix" << camera.K;
     fs << "distortion_coefficients" << camera.D;
     fs << "image_width" << camera.image_size.width;

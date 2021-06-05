@@ -35,13 +35,13 @@
 
 #include <ecto/ecto.hpp>
 #include <opencv2/calib3d/calib3d.hpp>
-#if CV_MAJOR_VERSION == 3
+//#if CV_MAJOR_VERSION == 3
 #include <opencv2/rgbd.hpp>
 using cv::rgbd::DepthCleaner;
-#else
-#include <opencv2/rgbd/rgbd.hpp>
-using cv::DepthCleaner;
-#endif
+//#else
+//#include <opencv2/rgbd/rgbd.hpp>
+//using cv::DepthCleaner;
+//#endif
 
 using ecto::tendrils;
 namespace rgbd

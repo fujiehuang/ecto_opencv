@@ -80,7 +80,7 @@ namespace calib
       {
         std::cout << "Calibrating the camera, given " << n_obs_ << " observations" << std::endl;
         std::vector<cv::Mat> rvecs, tvecs;
-        int flags = CV_CALIB_FIX_ASPECT_RATIO | CV_CALIB_FIX_PRINCIPAL_POINT | CV_CALIB_ZERO_TANGENT_DIST;
+        int flags = cv::CALIB_FIX_ASPECT_RATIO | cv::CALIB_FIX_PRINCIPAL_POINT | cv::CALIB_ZERO_TANGENT_DIST;
         camera_.image_size = in.get<cv::Mat>("image").size();
         double rms = cv::calibrateCamera(object_pts_, observation_pts_, camera_.image_size, camera_.K, camera_.D, rvecs,
                                          tvecs, flags);

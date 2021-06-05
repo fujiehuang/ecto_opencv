@@ -44,13 +44,13 @@ namespace ecto_opencv
 
       std::string fmtedtxt = boost::str(boost::format(*fmt) % *value);
       int baseline = 0;
-      cv::Size sz = cv::getTextSize(fmtedtxt, CV_FONT_HERSHEY_SIMPLEX, 1, 1, &baseline);
+      cv::Size sz = cv::getTextSize(fmtedtxt, cv::FONT_HERSHEY_SIMPLEX, 1, 1, &baseline);
       cv::rectangle(*outimg,
                     Point(10 + *x, 30 + *y + 5),
                     Point(10 + *x, 30 + *y) + Point(sz.width, -sz.height - 5),
                     Scalar::all(0), -1);
-      cv::putText(*outimg, fmtedtxt, Point(10 + *x, 30 + *y), CV_FONT_HERSHEY_SIMPLEX,
-                  1.0, Scalar::all(255), 1, CV_AA, false);
+      cv::putText(*outimg, fmtedtxt, Point(10 + *x, 30 + *y), cv::FONT_HERSHEY_SIMPLEX,
+                  1.0, Scalar::all(255), 1, cv::LINE_AA, false);
 
       return 0;
     }

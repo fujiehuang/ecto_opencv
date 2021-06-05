@@ -74,12 +74,12 @@ namespace ecto_opencv
       c.disconnect();
       if (full_screen)
       {
-        cv_backports::namedWindow(name, CV_WINDOW_KEEPRATIO);
-        cv_backports::setWindowProperty(name, CV_WND_PROP_FULLSCREEN, true);
+        cv_backports::namedWindow(name, cv::WINDOW_KEEPRATIO);
+        cv_backports::setWindowProperty(name, cv::WND_PROP_FULLSCREEN, true);
       }
       else if (auto_size)
       {
-        cv_backports::namedWindow(name, CV_WINDOW_KEEPRATIO);
+        cv_backports::namedWindow(name, cv::WINDOW_KEEPRATIO);
       }
       cv_backports::imshow(name, image);
     }

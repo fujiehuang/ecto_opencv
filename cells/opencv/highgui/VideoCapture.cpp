@@ -59,8 +59,8 @@ namespace ecto_opencv
         if (!capture.isOpened())
           throw std::runtime_error("Could not open video device : " + video_device);
       }
-      capture.set(CV_CAP_PROP_FRAME_WIDTH, width);
-      capture.set(CV_CAP_PROP_FRAME_HEIGHT, height);
+      capture.set(cv::CAP_PROP_FRAME_WIDTH, width);
+      capture.set(cv::CAP_PROP_FRAME_HEIGHT, height);
     }
 
     int

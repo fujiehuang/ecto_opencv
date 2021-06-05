@@ -2,15 +2,15 @@
 #include <boost/python.hpp>
 
 #include <opencv2/core/core.hpp>
-#if CV_MAJOR_VERSION == 3
+//#if CV_MAJOR_VERSION == 3
 #include <opencv2/rgbd.hpp>
 using cv::rgbd::RgbdNormals;
 using cv::rgbd::DepthCleaner;
-#else
-#include <opencv2/rgbd/rgbd.hpp>
-using cv::RgbdNormals;
-using cv::DepthCleaner;
-#endif
+//#else
+//#include <opencv2/rgbd/rgbd.hpp>
+//using cv::RgbdNormals;
+//using cv::DepthCleaner;
+//#endif
 
 namespace bp = boost::python;
 

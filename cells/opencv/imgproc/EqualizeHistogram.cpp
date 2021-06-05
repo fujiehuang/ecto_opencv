@@ -61,14 +61,14 @@ namespace imgproc
       {
         // Convert to HSV
         cv::Mat new_color_image, equalized_new_color_image;
-        cv::cvtColor(*input_image_, new_color_image, CV_RGB2HSV);
+        cv::cvtColor(*input_image_, new_color_image, cv::COLOR_RGB2HSV);
 
         std::vector<cv::Mat> channels(3);
         cv::split(new_color_image, channels);
         cv::equalizeHist(channels[2], channels[2]);
         cv::merge(channels, equalized_new_color_image);
 
-        cv::cvtColor(equalized_new_color_image, *output_image_, CV_HSV2RGB);
+        cv::cvtColor(equalized_new_color_image, *output_image_, cv::COLOR_HSV2RGB);
       }
       else
         cv::equalizeHist(*input_image_, *output_image_);

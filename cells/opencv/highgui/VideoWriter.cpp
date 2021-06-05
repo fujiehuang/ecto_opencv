@@ -51,7 +51,7 @@ namespace ecto_opencv
       {
         std::cout << "Opening : " << *video_file << std::endl;
         framesize = frame->size();
-        bool success = writer->open(*video_file, CV_FOURCC_DEFAULT, *fps, framesize);
+        bool success = writer->open(*video_file, cv::VideoWriter::fourcc('I','Y','U','V'), *fps, framesize);
         if (!success)
           throw std::runtime_error("Could not open video file for writing: " + (*video_file));
       }

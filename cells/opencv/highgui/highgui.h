@@ -15,15 +15,15 @@ namespace ecto_opencv
     enum Modes
     {
       /* 8bit, color or not */
-      UNCHANGED = CV_LOAD_IMAGE_UNCHANGED,
+      UNCHANGED = cv::IMREAD_UNCHANGED,
       /* 8bit, gray */
-      GRAYSCALE = CV_LOAD_IMAGE_GRAYSCALE,
+      GRAYSCALE = cv::IMREAD_GRAYSCALE,
       /* ?, color */
-      COLOR = CV_LOAD_IMAGE_COLOR,
+      COLOR = cv::IMREAD_COLOR,
       /* any depth, ? */
-      ANYDEPTH = CV_LOAD_IMAGE_ANYDEPTH,
+      ANYDEPTH = cv::IMREAD_ANYDEPTH,
       /* ?, any color */
-      ANYCOLOR = CV_LOAD_IMAGE_ANYCOLOR
+      ANYCOLOR = cv::IMREAD_ANYCOLOR
     };
   }
 }

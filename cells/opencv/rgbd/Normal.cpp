@@ -36,13 +36,13 @@
 #include <ecto/ecto.hpp>
 #include <opencv2/calib3d/calib3d.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
-#if CV_MAJOR_VERSION == 3
+//#if CV_MAJOR_VERSION == 3
 #include <opencv2/rgbd.hpp>
 using cv::rgbd::RgbdNormals;
-#else
-#include <opencv2/rgbd/rgbd.hpp>
-using cv::RgbdNormals;
-#endif
+//#else
+//#include <opencv2/rgbd/rgbd.hpp>
+//using cv::RgbdNormals;
+//#endif
 
 using ecto::tendrils;
 namespace rgbd

@@ -71,11 +71,11 @@ namespace ecto_opencv
         cv::Mat im_wrapper_(*image_height, *image_width, type, data);
         if (!im_wrapper_.empty() && im_wrapper_.channels() == 3)
         {
-          cv::cvtColor(im_wrapper_, temp, CV_RGB2BGR);
+          cv::cvtColor(im_wrapper_, temp, cv::COLOR_RGB2BGR);
         }
         else if (!im_wrapper_.empty() && im_wrapper_.channels() == 2)
         {
-          cv::cvtColor(im_wrapper_,temp, CV_YUV420sp2RGB);
+          cv::cvtColor(im_wrapper_,temp, cv::COLOR_YUV420sp2RGB);
         }
         else
         {

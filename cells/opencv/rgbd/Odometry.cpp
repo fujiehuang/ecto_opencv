@@ -37,18 +37,18 @@
 #include <opencv2/core/core.hpp>
 #include <opencv2/calib3d/calib3d.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
-#if CV_MAJOR_VERSION == 3
+//#if CV_MAJOR_VERSION == 3
 #include <opencv2/rgbd.hpp>
 using cv::rgbd::RgbdOdometry;
 using cv::rgbd::rescaleDepth;
 using cv::rgbd::warpFrame;
-#else
-#include <opencv2/contrib/contrib.hpp>
-#include <opencv2/rgbd/rgbd.hpp>
-using cv::RgbdOdometry;
-using cv::rescaleDepth;
-using cv::warpFrame;
-#endif
+//#else
+//#include <opencv2/contrib/contrib.hpp>
+//#include <opencv2/rgbd/rgbd.hpp>
+//using cv::RgbdOdometry;
+//using cv::rescaleDepth;
+//using cv::warpFrame;
+//#endif
 #include <string>
 #include <numeric>
 #include <vector>
@@ -90,7 +90,7 @@ using namespace std;
       cv::Mat current_image_gray, current_image;
       if (current_image_->channels() == 3)
       {
-        cv::cvtColor(*current_image_, current_image_gray, CV_BGR2GRAY);
+        cv::cvtColor(*current_image_, current_image_gray, cv::COLOR_BGR2GRAY);
         current_image_->copyTo(current_image);
       }
       else
@@ -127,11 +127,11 @@ using namespace std;
       if (odometry_.empty())
       {
           odometry_ = cv::Ptr<RgbdOdometry>(new RgbdOdometry());
-#if CV_VERSION_MAJOR == 3
+//#if CV_VERSION_MAJOR == 3
           odometry_->setCameraMatrix(cameraMatrix);
-#else
-          odometry_->set("cameraMatrix", cameraMatrix);
-#endif
+//#else
+//          odometry_->set("cameraMatrix", cameraMatrix);
+//#endif
       }
 
       if (odometry_.empty())

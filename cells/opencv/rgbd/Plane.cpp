@@ -41,15 +41,15 @@
 #include <string>
 
 #include <opencv2/imgproc/imgproc.hpp>
-#if CV_MAJOR_VERSION == 3
+//#if CV_MAJOR_VERSION == 3
 #include <opencv2/rgbd.hpp>
 using cv::rgbd::RgbdNormals;
 using cv::rgbd::RgbdPlane;
-#else
-#include <opencv2/rgbd/rgbd.hpp>
-using cv::RgbdNormals;
-using cv::RgbdPlane;
-#endif
+//#else
+//#include <opencv2/rgbd/rgbd.hpp>
+//using cv::RgbdNormals;
+//using cv::RgbdPlane;
+//#endif
 
 #include <ecto/ecto.hpp>
 
@@ -110,15 +110,15 @@ namespace rgbd
 
       if (plane_computer_.empty())
       {
-#if CV_MAJOR_VERSION == 3
+//#if CV_MAJOR_VERSION == 3
         plane_computer_.reset(new RgbdPlane());
-#else
-        plane_computer_ = cv::Algorithm::create<cv::RgbdPlane>("RGBD.RgbdPlane");
-        plane_computer_->set("sensor_error_a", *sensor_error_a_);
-        plane_computer_->set("sensor_error_b", *sensor_error_b_);
-        plane_computer_->set("sensor_error_c", *sensor_error_c_);
-        plane_computer_->set("min_size", *min_size_);
-#endif
+//#else
+//        plane_computer_ = cv::Algorithm::create<cv::RgbdPlane>("RGBD.RgbdPlane");
+//        plane_computer_->set("sensor_error_a", *sensor_error_a_);
+//        plane_computer_->set("sensor_error_b", *sensor_error_b_);
+//        plane_computer_->set("sensor_error_c", *sensor_error_c_);
+//        plane_computer_->set("min_size", *min_size_);
+//#endif
       }
       (*plane_computer_)(*points3d_, *normals_, *masks_, *planes_);
 
@@ -176,7 +176,7 @@ namespace rgbd
       cv::Mat_<cv::Vec3b> hsv(n_colors, 1), rgb;
       for (size_t i = 0; i < n_colors; ++i)
         hsv(i) = cv::Vec3b((i * 180) / n_colors, 255, 255);
-      cv::cvtColor(hsv, rgb, CV_HSV2RGB);
+      cv::cvtColor(hsv, rgb, cv::COLOR_HSV2RGB);
       for (size_t i = 0; i < n_colors; ++i)
         colors_.push_back(cv::Vec3b(rgb(i)[0], rgb(i)[1], rgb(i)[2]));
       previous_plane_number_ = 0;

@@ -150,11 +150,11 @@ namespace ecto_opencv
       {
         boost::interprocess::file_lock flock(lock_name_->c_str());
         flock.lock();
-        outputs["image"] << cv::imread(*iter, CV_LOAD_IMAGE_UNCHANGED);
+        outputs["image"] << cv::imread(*iter, cv::IMREAD_UNCHANGED);
         flock.unlock();
       }
       else
-        outputs["image"] << cv::imread(*iter, CV_LOAD_IMAGE_UNCHANGED);
+        outputs["image"] << cv::imread(*iter, cv::IMREAD_UNCHANGED);
 
       *image_file = *iter;
       //increment our frame number.

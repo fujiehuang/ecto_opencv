@@ -23,9 +23,9 @@ namespace ecto_opencv
       Size imgsize = drawImage.size();
       std::string scaleText = boost::str(boost::format("%ux%u @ %.2f Hz") % imgsize.width % imgsize.height % freq);
       int baseline = 0;
-      Size sz = getTextSize(scaleText, CV_FONT_HERSHEY_SIMPLEX, scale, 1, &baseline);
+      Size sz = getTextSize(scaleText, cv::FONT_HERSHEY_SIMPLEX, scale, 1, &baseline);
       rectangle(drawImage, Point(10, 30 + 5), Point(10, 30) + Point(sz.width, -sz.height - 5), Scalar::all(0), -1);
-      putText(drawImage, scaleText, Point(10, 30), CV_FONT_HERSHEY_SIMPLEX, scale, Scalar::all(255), 1, CV_AA, false);
+      putText(drawImage, scaleText, Point(10, 30), cv::FONT_HERSHEY_SIMPLEX, scale, Scalar::all(255), 1, cv::LINE_AA, false);
     }
 
     static void

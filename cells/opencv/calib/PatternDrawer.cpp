@@ -44,7 +44,7 @@ namespace calib
       if(image.channels() == 1)
       {
         //so that we have color...
-        cv::cvtColor(image,image_out,CV_GRAY2RGB);
+        cv::cvtColor(image,image_out,cv::COLOR_GRAY2RGB);
       }else
       {
         image_out = image.clone(); // clone our image so we don't corrupt the input.

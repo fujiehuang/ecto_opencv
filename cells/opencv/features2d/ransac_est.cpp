@@ -225,7 +225,7 @@ struct MatchRefinement
     cv::Mat mask;
     if (test_pts.size() > 5 && train_pts.size() > 5)
     {
-      cv::Mat H = cv::findHomography(test_pts, train_pts, CV_RANSAC, 10, mask);
+      cv::Mat H = cv::findHomography(test_pts, train_pts, cv::RANSAC, 10, mask);
       *H_out = H;
     }
     else
@@ -443,7 +443,7 @@ struct MatchRefinementHSvd
     //need to preallocate the mask!
     cv::Mat rvec, tvec;
     cv::Mat inlier_mask;
-    cv::Mat H = cv::findHomography(test_pts, train_pts, CV_RANSAC, *reprojection_error, inlier_mask);
+    cv::Mat H = cv::findHomography(test_pts, train_pts, cv::RANSAC, *reprojection_error, inlier_mask);
     std::remove_copy_if(good_matches.begin(), good_matches.end(), std::back_inserter(good_matches_H),
                         mask_predicate(inlier_mask.begin<uchar>()));
 

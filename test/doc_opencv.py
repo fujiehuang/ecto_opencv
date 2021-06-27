@@ -15,4 +15,4 @@ class TestListModules(unittest.TestCase):
 
 if __name__ == '__main__':
     import rosunit
-    rosunit.rosrun('ecto_opencv', 'test_ecto_opencv', TestListModules)
+    rosunit.unitrun('ecto_opencv', 'test_ecto_opencv', TestListModules)

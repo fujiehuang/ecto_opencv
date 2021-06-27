@@ -29,17 +29,17 @@ struct ORB
   void
   configure(const tendrils& params, const tendrils& inputs, const tendrils& outputs)
   {
-#if CV_MAJOR_VERSION ==3
+//#if CV_MAJOR_VERSION ==3
     orb_ = cv::ORB::create(*n_features_, *scale_factor_, *n_levels_);
-#elif (CV_MAJOR_VERSION == 2) && (CV_MINOR_VERSION >= 4)
-    orb_ = cv::Ptr<cv::ORB>(new cv::ORB(*n_features_, *scale_factor_, *n_levels_));
-#else
-    cv::ORB::CommonParams orb_params;
-    orb_params.first_level_ = 0;
-    orb_params.n_levels_ = *n_levels_;
-    orb_params.scale_factor_ = *scale_factor_;
-    orb_ = cv::Ptr<cv::ORB>(new cv::ORB(*n_features_, orb_params));
-#endif
+//#elif (CV_MAJOR_VERSION == 2) && (CV_MINOR_VERSION >= 4)
+//    orb_ = cv::Ptr<cv::ORB>(new cv::ORB(*n_features_, *scale_factor_, *n_levels_));
+//#else
+//    cv::ORB::CommonParams orb_params;
+//    orb_params.first_level_ = 0;
+//    orb_params.n_levels_ = *n_levels_;
+//    orb_params.scale_factor_ = *scale_factor_;
+//    orb_ = cv::Ptr<cv::ORB>(new cv::ORB(*n_features_, orb_params));
+//#endif
   }
 
   int
@@ -51,11 +51,11 @@ struct ORB
     inputs["image"] >> image;
     inputs["mask"] >> mask;
     cv::Mat desc;
-#if CV_MAJOR_VERSION == 3
+//#if CV_MAJOR_VERSION == 3
     orb_->detectAndCompute(image, mask, keypoints, desc, !keypoints.empty()); //use the provided keypoints if they were given.
-#else
-    (*orb_)(image, mask, keypoints, desc, !keypoints.empty()); //use the provided keypoints if they were given.
-#endif
+//#else
+//    (*orb_)(image, mask, keypoints, desc, !keypoints.empty()); //use the provided keypoints if they were given.
+//#endif
     if (!mask.empty())
     {
       //need to do keypoint validation as ORB is broken.
@@ -144,11 +144,11 @@ struct ORBstats
       desc.pop_back(1);
       for (int i = 0, end = desc.rows; i < end; i++)
       {
-#if CV_MAJOR_VERSION == 3
+//#if CV_MAJOR_VERSION == 3
         size_t distance = cv::norm(desc_i, desc.row(i), cv::NORM_HAMMING);
-#else
-        size_t distance = cv::normHamming(desc_i.data, desc.row(i).data, desc.cols);
-#endif
+//#else
+//        size_t distance = cv::normHamming(desc_i.data, desc.row(i).data, desc.cols);
+//#endif
         distances[distance]++;
       }
     }

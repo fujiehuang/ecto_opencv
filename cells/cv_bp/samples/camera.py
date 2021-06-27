@@ -15,7 +15,7 @@ capture = opencv.VideoCapture(device)
 
 img = opencv.Mat()
 
-print "press q or ESC to exit."
+print("press q or ESC to exit.")
 
 while True:
     capture.read(img)

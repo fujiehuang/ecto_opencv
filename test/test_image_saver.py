@@ -11,7 +11,7 @@ class TestImageSaver(unittest.TestCase):
 
         try:
             saver = highgui.ImageSaver(filename_format='img.png')
-        except RuntimeError, e:
+        except RuntimeError as e:
             assert 'boost::too_many_args:' in str(e)
 
         saver = highgui.ImageSaver(filename_format='img_%05d.png')
@@ -22,7 +22,7 @@ class TestImageSaver(unittest.TestCase):
 
         assert os.path.isfile('img_00000.png')
         stats =  os.stat('img_00000.png')
-        print stats
+        print(stats)
         assert stats.st_size > 1000
         os.remove('img_00000.png')
 

@@ -9,7 +9,8 @@ saver = highgui.MatWriter(filename='x.yaml')
 
 plasm = ecto.Plasm()
 plasm.connect(opencv_test.MatGen()['mat'] >> saver['mat'])
-sched = ecto.schedulers.Singlethreaded(plasm)
+#sched = ecto.schedulers.Singlethreaded(plasm)
+sched = ecto.Scheduler(plasm)
 sched.execute(niter=1)
 
 assert os.path.isfile('x.yaml')
@@ -17,7 +18,8 @@ reader = highgui.MatReader(filename='x.yaml')
 
 plasm = ecto.Plasm()
 plasm.connect(reader['mat'] >> highgui.MatPrinter(name='x')[:])
-sched = ecto.schedulers.Singlethreaded(plasm)
+#sched = ecto.schedulers.Singlethreaded(plasm)
+sched = ecto.Scheduler(plasm)
 sched.execute(niter=1)
 
 assert reader.outputs.mat.rows != 0

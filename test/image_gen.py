@@ -33,6 +33,7 @@ plasm.connect(
               )
 
 #ecto.view_plasm(plasm)
-sched = ecto.schedulers.Singlethreaded(plasm)
+#sched = ecto.schedulers.Singlethreaded(plasm)
+sched = ecto.Scheduler(plasm)
 sched.execute(niter=10)
-print sched.stats()
+print(sched.stats())
